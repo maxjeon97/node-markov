@@ -29,7 +29,7 @@ class MarkovMachine {
 
   getChains() {
     // TODO: could refactor to use maps if we have time
-    // Maps are always ordered, map's keys can be of any type while obj's keys
+    // Maps are always ordered, a map's keys can be of any type while obj's keys
     // need to be strings, maps can use .size to check how many elements are present
     const chains = {};
 
