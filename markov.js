@@ -35,9 +35,9 @@ class MarkovMachine {
 
     for (let i = 0; i < this.words.length; i++) {
       const currWord = this.words[i];
-      const nextWord = this.words[i+1] || null;
+      const nextWord = this.words[i + 1] || null;
 
-      if(chains[currWord]) {
+      if (chains[currWord]) {
         chains[currWord].push(nextWord);
       }
       else {
@@ -53,12 +53,38 @@ class MarkovMachine {
    *  until it hits a null choice. */
 
   getText() {
-    // TODO: implement this!
 
-    // - start at the first word in the input text
-    // - find a random word from the following-words of that
-    // - repeat until reaching the terminal null
+    const results = [];
+    let currWord = this.words[0];
+    const chains = this.chains;
+
+    while (currWord !== null) {
+      // - start at the first word in the input text
+      // - find a random word from the following-words of that
+      // - repeat until reaching the terminal null
+      const wordPool = chains[currWord];
+      const randomIndex = MarkovMachine.getRandomIndex(wordPool.length);
+      const nextWord = wordPool[randomIndex];
+
+      results.push(currWord);
+
+      if (nextWord !== null) {
+        currWord = nextWord;
+      } else {
+        break;
+      }
+    }
+    return results.join(" ");
   }
+
+  /* Given an maximum number, return a random integer between 0 and that number,
+    inclusive of 0 and exclusive of maximum
+  */
+
+  static getRandomIndex(max) {
+    return Math.floor(Math.random() * max);
+  }
+
 }
 
 module.exports = {
