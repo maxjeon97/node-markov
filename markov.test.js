@@ -31,7 +31,17 @@ describe("MarkovMachine tests", function () {
     const machine = new MarkovMachine(text);
     let result = machine.getText();
 
-    expect(result.endsWith("cat.")).toBeTruthy();
+    expect(result.endsWith("cat.")).toBe(true);
+
+    const words = result.split(/[ \r\n]+/);
+    const chains = machine.chains;
+
+    for (let i = 0; i < words.length; i++) {
+      const wordPool = chains[words[i]];
+      const nextWord = words[i + 1] || null;
+
+      expect(wordPool).toContain(nextWord);
+    }
   });
 
 });

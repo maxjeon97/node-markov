@@ -59,21 +59,14 @@ class MarkovMachine {
     const chains = this.chains;
 
     while (currWord !== null) {
-      // - start at the first word in the input text
-      // - find a random word from the following-words of that
-      // - repeat until reaching the terminal null
       const wordPool = chains[currWord];
       const randomIndex = MarkovMachine.getRandomIndex(wordPool.length);
       const nextWord = wordPool[randomIndex];
 
       results.push(currWord);
-
-      if (nextWord !== null) {
-        currWord = nextWord;
-      } else {
-        break;
-      }
+      currWord = nextWord;
     }
+
     return results.join(" ");
   }
 
